@@ -1,29 +1,99 @@
-The project contains below functionalities : 
+# Spring-Security
 
-1. SPRING-SECURITY usage to filter the API Requests based on roles assigned to the user.
-2. Token based accessibility to API that expired in 5 minutes.
-3. App can be dockerized. 
+## Features
 
-APIs:
+This project demonstrates the following functionalities:
 
-1. Register User
-   Method - POST - http://localhost:8080/demo-api/auth/register 
-   Body -  {
-              "username": "john",
-              "password": "john123",
-              "role": "USER"
-  }
+1. **SPRING-SECURITY** - API request filtering based on user roles
+2. **Token-based authentication** - JWT tokens with 5-minute expiration
+3. **Docker support** - Application can be containerized
 
-  Valid role values : [USER,ADMIN]
+## API Documentation
 
-2. Generate Token 
-    Method - POST - http://localhost:8080/demo-api/auth/login
-    Body - {
-              "username": "john",
-              "password": "john123"
-            }
-3. List Users
-   Method - GET - http://localhost:8080/demo-api/ven-users  [Allowed only for "ADMIN" roles]
-4. List Todos
-   Method - GET - http://localhost:8080/demo-api/ven-todos  [Allowed for both "ADMIN" and "USER" roles].
+### 1. Register User
 
+**Method:** `POST`
+
+**Endpoint:** `http://localhost:8080/demo-api/auth/register`
+
+**Request Body:**
+```json
+{
+  "username": "john",
+  "password": "john123",
+  "role": "USER"
+}
+```
+
+**Valid Roles:** `USER`, `ADMIN`
+
+---
+
+### 2. Generate Token (Login)
+
+**Method:** `POST`
+
+**Endpoint:** `http://localhost:8080/demo-api/auth/login`
+
+**Request Body:**
+```json
+{
+  "username": "john",
+  "password": "john123"
+}
+```
+
+---
+
+### 3. List Users
+
+**Method:** `GET`
+
+**Endpoint:** `http://localhost:8080/demo-api/ven-users`
+
+**Authorization:** Admin only (`ADMIN` role required)
+
+---
+
+### 4. List Todos
+
+**Method:** `GET`
+
+**Endpoint:** `http://localhost:8080/demo-api/ven-todos`
+
+**Authorization:** Available to both `ADMIN` and `USER` roles
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Java 17+
+- Maven
+- Docker (optional)
+
+### Running the Application
+```bash
+# Clone the repository
+git clone <your-repo-url>
+
+# Navigate to project directory
+cd <project-name>
+
+# Run with Maven
+./mvnw spring-boot:run
+
+# Or with Docker
+docker build -t spring-security-demo .
+docker run -p 8080:8080 spring-security-demo
+```
+
+## Authentication Flow
+
+1. Register a new user using the `/auth/register` endpoint
+2. Login with credentials to receive a JWT token via `/auth/login`
+3. Include the token in the `Authorization` header for protected endpoints:
+```
+   Authorization: Bearer <your-token>
+```
+4. Tokens expire after 5 minutes - request a new token if needed
