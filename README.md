@@ -75,13 +75,13 @@ This project demonstrates the following functionalities:
 ### Running the Application
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/surendrary/Spring-Security
 
 # Navigate to project directory
-cd <project-name>
-
+cd user-todos-main
+  
 # Run with Maven
-./mvnw spring-boot:run
+./mvnw spring-boot:run -Dstart-class=com.security.demo.todos.UserTodosApplication
 
 # Or with Docker
 docker build -t spring-security-demo .
